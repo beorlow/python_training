@@ -14,7 +14,8 @@ class test_add_contact(unittest.TestCase):
     def setUp(self):
         self.wd = WebDriver()
         self.wd.implicitly_wait(60)
-    
+
+
     def test_add_contact(self):
         wd = self.wd
         self.open_home_page(wd)
@@ -23,7 +24,7 @@ class test_add_contact(unittest.TestCase):
                             company="Engineering", address="Doscoe 6 Wisconsin", homephone="111 111 111",
                             mobilephone="222 222 222", workphone="333 333 333", faxnumber="546 789 876",
                             email1="kooll@anne.com", email2="loook@mo.com", email3="inne@mol.com",
-                            website="zaggfa.co.uk", birthyear="1952", annivyear="1985", address2="Selby 72",
+                            website="zaggfa.co.uk", address2="Selby 72",
                             homephone2="555 555 555", notes="Chief Engineer"))
         self.return_to_home_contact_page(wd)
         self.logout(wd)
@@ -37,7 +38,7 @@ class test_add_contact(unittest.TestCase):
                             company="", address="", homephone="",
                             mobilephone="", workphone="", faxnumber="",
                             email1="", email2="", email3="",
-                            website="", birthyear="", annivyear="", address2="",
+                            website="", address2="",
                             homephone2="", notes=""))
         self.return_to_home_contact_page(wd)
         self.logout(wd)
@@ -46,8 +47,10 @@ class test_add_contact(unittest.TestCase):
     def logout(self, wd):
         wd.find_element_by_link_text("Logout").click()
 
+
     def return_to_home_contact_page(self, wd):
         wd.find_element_by_link_text("home page").click()
+
 
     def create_contact(self, wd, contact):
         # init contact creation
@@ -98,21 +101,6 @@ class test_add_contact(unittest.TestCase):
         wd.find_element_by_name("homepage").click()
         wd.find_element_by_name("homepage").clear()
         wd.find_element_by_name("homepage").send_keys(contact.website)
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[1]//option[18]").is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[1]//option[18]").click()
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[2]//option[3]").is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[2]//option[3]").click()
-        wd.find_element_by_name("theform").click()
-        wd.find_element_by_name("byear").click()
-        wd.find_element_by_name("byear").clear()
-        wd.find_element_by_name("byear").send_keys(contact.birthyear)
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[3]//option[18]").is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[3]//option[18]").click()
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[4]//option[3]").is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[4]//option[3]").click()
-        wd.find_element_by_name("ayear").click()
-        wd.find_element_by_name("ayear").clear()
-        wd.find_element_by_name("ayear").send_keys(contact.annivyear)
         wd.find_element_by_name("address2").click()
         wd.find_element_by_name("address2").clear()
         wd.find_element_by_name("address2").send_keys(contact.address2)
@@ -125,6 +113,7 @@ class test_add_contact(unittest.TestCase):
         # submit contact creation
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
 
+
     def login(self, wd, username, password):
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
@@ -134,8 +123,10 @@ class test_add_contact(unittest.TestCase):
         wd.find_element_by_name("pass").send_keys(password)
         wd.find_element_by_xpath("//form[@id='LoginForm']/input[3]").click()
 
+
     def open_home_page(self, wd):
         wd.get("http://localhost:8080/addressbook/")
+
 
     def tearDown(self):
         self.wd.quit()
