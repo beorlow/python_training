@@ -7,7 +7,7 @@ class ContactHelper:
     def modify_first_contact(self, new_contact_data):
         wd = self.app.wd
         # go to contact page (homepage)
-        wd.find_element_by_link_text("home").click()
+        self.open_home_contact_page()
         self.select_first_contact()
         # enter modification mode
         wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img").click()
@@ -17,6 +17,11 @@ class ContactHelper:
         wd.find_element_by_xpath("//div[@id='content']/form[1]/input[22]").click()
         self.return_to_home_contact_page()
 
+    def open_home_contact_page(self):
+        wd = self.app.wd
+        if not (wd.current_url.endswith("/addressbook/") and len(wd.find_elements_by_name("searchform")) > 0):
+            wd.find_element_by_link_text("home").click()
+
     def return_to_home_contact_page(self):
         wd = self.app.wd
         wd.find_element_by_link_text("home page").click()
@@ -25,12 +30,12 @@ class ContactHelper:
     def delete_first_contact(self):
         wd = self.app.wd
         #go to contact page (homepage)
-        wd.find_element_by_link_text("home").click()
+        self.open_home_contact_page()
         self.select_first_contact()
         #submit deletion
         wd.find_element_by_xpath("//div[@id='content']/form[2]/div[2]/input").click()
         wd.switch_to_alert().accept()
-        wd.find_element_by_link_text("home").click()
+        self.open_home_contact_page()
 
     def select_first_contact(self):
         wd = self.app.wd
@@ -79,5 +84,5 @@ class ContactHelper:
 
     def count(self):
         wd = self.app.wd
-        wd.find_element_by_link_text("home").click()
+        self.open_home_contact_page()
         return len(wd.find_elements_by_name("selected[]"))
