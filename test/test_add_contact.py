@@ -11,16 +11,20 @@ def test_add_contact(app):
                         email="kooll@anne.com", email2="loook@mo.com", email3="inne@mol.com",
                         homepage="zaggfa.co.uk", address2="Selby 72", phone2="555 555 555", notes="Chief Engineer"))
     new_contacts = app.contact.get_contact_list()
-    print(old_contacts)
-    print(new_contacts)
+    #print(old_contacts)
+    #print(new_contacts)
     assert (len(old_contacts) + 1) == len(new_contacts)
 
 
 def test_add__empty_contact(app):
+    old_contacts = app.contact.get_contact_list()
     app.contact.create_contact(Contact(firstname="", middlename="", lastname="", nickname="", title="",
                         company="", address="", home="",
                         mobile="", work="", fax="",
                         email="", email2="", email3="",
                         homepage="", address2="",
                         phone2="", notes=""))
-
+    new_contacts = app.contact.get_contact_list()
+    #print(old_contacts)
+    #print(new_contacts)
+    assert (len(old_contacts) + 1) == len(new_contacts)
